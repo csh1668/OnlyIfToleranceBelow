@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+    <ToleranceThresholdColumnLabel>내성 기준치</ToleranceThresholdColumnLabel>
+    <ToleranceThresholdColumnDesc>해당 약의 대한 정착민의 내성이 본 수치 아래로 떨어져야 약물을 사용합니다.</ToleranceThresholdColumnDesc>
+</LanguageData>

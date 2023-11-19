@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>Only If 'Tolerance' Below in Drug Policy</name>
+	<author>SeoHyeon</author>
+	<packageId>seohyeon.onlyIfToleranceBelow</packageId>
+	<supportedVersions>
+		<li>1.4</li>
+	</supportedVersions>
+	<description>
+		This mod adds a slide bar in Drug Policy. If it sets below 'Any', The colonist will take the drug only if their tolerance level of the drug's chemical below this threshold.
+	</description>
+	<modDependencies>
+		<li>
+			<packageId>zetrith.prepatcher</packageId>
+			<displayName>Prepatcher</displayName>
+			<steamWorkshopUrl>steam://url/CommunityFilePage/2934420800</steamWorkshopUrl>
+		</li>
+	</modDependencies>
+	<loadAfter>
+		<li>zetrith.prepatcher</li>
+		<li>ludeon.rimworld</li>
+		<li>ludeon.rimworld.royalty</li>
+		<li>ludeon.rimworld.ideology</li>
+		<li>ludeon.rimworld.biotech</li>
+    </loadAfter>
+</ModMetaData>
