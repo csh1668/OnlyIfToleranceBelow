@@ -67,10 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mod.cs" />
-    <Compile Include="Patch_Dialog_ManageDrugPolicies.cs" />
-    <Compile Include="Patch_DrugPolicyEntry.cs" />
-    <Compile Include="Patch_JoyGiver_Ingest.cs" />
-    <Compile Include="Patch_Pawn_DrugPolicyTracker.cs" />
+    <Compile Include="Patches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,6 +14,12 @@ namespace DrugPolicyEnhanced
         {
             var h = new Harmony("seohyeon.drugpolicyenhanced");
             h.PatchAll();
+
+            LongEventHandler.QueueLongEvent(() =>
+            {
+                Patches.InitDict();
+                Log.Message("Only if tolerance below: dict init done.");
+            }, "seohyeon.drugpolicyenhanced", false, null);
         }
     }
 }
