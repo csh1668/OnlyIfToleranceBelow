@@ -4,6 +4,7 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -45,7 +46,7 @@ namespace DrugPolicyEnhanced
 
                 __instance.NewWidth() = joyThresholdWidth;
                 __instance.Sum() = addictionWidth + allowJoyWidth + scheduledWidth + drugIconWidth + drugNameWidth + frequencyWidth +
-                          moodThresholdWidth + joyThresholdWidth + takeToInventoryWidth;
+                                   moodThresholdWidth + joyThresholdWidth + takeToInventoryWidth;
             }
 
             [HarmonyPatch("DoColumnLabels"), HarmonyPostfix]

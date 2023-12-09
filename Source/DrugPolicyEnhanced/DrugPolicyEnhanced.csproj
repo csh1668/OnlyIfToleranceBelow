@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Mod.cs" />
     <Compile Include="Patches.cs" />
+    <Compile Include="Patch_YayoCombat_CalculateColumnsWidths.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

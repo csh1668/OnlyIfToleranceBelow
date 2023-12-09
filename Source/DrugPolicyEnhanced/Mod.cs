@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HarmonyLib;
+using RimWorld;
 using Verse;
 
 namespace DrugPolicyEnhanced
@@ -14,6 +15,7 @@ namespace DrugPolicyEnhanced
         {
             var h = new Harmony("seohyeon.drugpolicyenhanced");
             h.PatchAll();
+            Log.Message("Only if tolerance below: harmony patches applied.");
 
             LongEventHandler.QueueLongEvent(() =>
             {
