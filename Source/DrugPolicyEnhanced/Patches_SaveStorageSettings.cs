@@ -62,9 +62,15 @@ namespace DrugPolicyEnhanced
                 var lines = File.ReadAllLines(fi.FullName);
                 foreach (var token in lines.Where(x => x.StartsWith("|")).Select(x => x.Substring(1)))
                 {
-                    Log.Message(token);
                     var splited = token.Split(':');
-                    drugPolicy[ThingDef.Named(splited[0])].OnlyIfToleranceBelow() = float.Parse(splited[1]);
+                    try
+                    {
+                        drugPolicy[ThingDef.Named(splited[0])].OnlyIfToleranceBelow() = float.Parse(splited[1]);
+                    }
+                    catch
+                    {
+                        // do nothing
+                    }
                 }
             }
         }

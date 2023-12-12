@@ -95,7 +95,7 @@ namespace DrugPolicyEnhanced
                 var giver = DrugStatsUtility.GetToleranceGiver(thingDef);
                 if (giver?.hediffDef == null)
                 {
-                    Log.Warning($"Drug: {thingDef.defName} should have but doesn't have Tolerance Giver.");
+                    Log.Warning($"Only if tolerance below: Drug: {thingDef.defName} should have but doesn't have Tolerance Giver.");
                     return;
                 }
                 var hediff = __instance.pawn.health?.hediffSet?.GetFirstHediffOfDef(giver.hediffDef);
@@ -122,7 +122,7 @@ namespace DrugPolicyEnhanced
                 var giver = DrugStatsUtility.GetToleranceGiver(t.def);
                 if (giver?.hediffDef == null)
                 {
-                    Log.Warning($"Drug: {t.def.defName} should have but doesn't have Tolerance Giver.");
+                    Log.Warning($"Only if tolerance below: Drug: {t.def.defName} should have but doesn't have Tolerance Giver.");
                     return;
                 }
                 var hediff = pawn.health?.hediffSet?.GetFirstHediffOfDef(giver.hediffDef);
