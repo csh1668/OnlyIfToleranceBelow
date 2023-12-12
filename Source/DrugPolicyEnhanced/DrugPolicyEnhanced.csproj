@@ -66,8 +66,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExposedPrepatcherFields.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Patches.cs" />
+    <Compile Include="Patches_SaveStorageSettings.cs" />
     <Compile Include="Patch_YayoCombat_CalculateColumnsWidths.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
