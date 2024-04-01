@@ -33,9 +33,16 @@ namespace DrugPolicyEnhanced
             ref float scheduledWidth, ref float drugNameWidth, ref float frequencyWidth, ref float moodThresholdWidth,
             ref float joyThresholdWidth, ref float takeToInventoryWidth)
         {
+#if v14
             frequencyWidth *= (0.35f - 0.06f) / 0.35f;
             moodThresholdWidth *= (0.15f - 0.03f) / 0.15f;
             joyThresholdWidth *= (0.15f - 0.03f) / 0.15f;
+#endif
+#if v15
+            frequencyWidth *= (0.30f - 0.06f) / 0.30f;
+            moodThresholdWidth *= (0.15f - 0.03f) / 0.15f;
+            joyThresholdWidth *= (0.15f - 0.03f) / 0.15f;
+#endif
         }
     }
 }

@@ -5,6 +5,7 @@
 	<packageId>seohyeon.onlyIfToleranceBelow</packageId>
 	<supportedVersions>
 		<li>1.4</li>
+		<li>1.5</li>
 	</supportedVersions>
 	<description>
 		This mod adds a slide bar in Drug Policy. If it sets below 'Any', The colonist will take the drug only if their tolerance level of the drug's chemical below this threshold.
