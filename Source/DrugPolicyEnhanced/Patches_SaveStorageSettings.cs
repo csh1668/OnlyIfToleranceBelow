@@ -14,7 +14,7 @@ namespace DrugPolicyEnhanced
 {
     /// <summary>
     /// Patches for [KV] Save Storage, Outfit, Crafting, Drug, & Operation Settings [1.4]
-    /// Because they uses their own format for save or load settings :(
+    /// Because they uses their own format for save or load settings
     /// </summary>
     public static class Patches_SaveStorageSettings
     {
@@ -27,7 +27,12 @@ namespace DrugPolicyEnhanced
             }
             public static MethodBase TargetMethod()
             {
+#if v14
                 return AccessTools.Method("SaveStorageSettings.IOUtil:SavePolicySettings");
+#endif
+#if v15
+                return AccessTools.Method("SaveStorageSettings.IOUtil:SaveDrugPolicySettings");
+#endif
             }
 
             public static void Postfix(ref bool __result, DrugPolicy policy, FileInfo fi)
@@ -54,7 +59,12 @@ namespace DrugPolicyEnhanced
             }
             public static MethodBase TargetMethod()
             {
+#if v14
                 return AccessTools.Method("SaveStorageSettings.IOUtil:LoadPolicy");
+#endif
+#if v15
+                return AccessTools.Method("SaveStorageSettings.IOUtil:LoadDrugPolicy");
+#endif
             }
 
             public static void Postfix(DrugPolicy drugPolicy, FileInfo fi)

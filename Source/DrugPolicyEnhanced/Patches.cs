@@ -1,10 +1,15 @@
 ﻿using HarmonyLib;
+#if !RW17
 using Prepatcher;
+#endif
 using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+#if RW17
+using System.Runtime.CompilerServices;
+#endif
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -26,6 +31,27 @@ namespace DrugPolicyEnhanced
                     HasToleranceDict[thingDef.defName] = false;
             }
         }
+#if RW17
+        private static readonly ConditionalWeakTable<Dialog_ManageDrugPolicies, StrongBox<float>> SumTable =
+            new ConditionalWeakTable<Dialog_ManageDrugPolicies, StrongBox<float>>();
+        private static readonly ConditionalWeakTable<Dialog_ManageDrugPolicies, StrongBox<float>> NewWidthTable =
+            new ConditionalWeakTable<Dialog_ManageDrugPolicies, StrongBox<float>>();
+        private static readonly ConditionalWeakTable<DrugPolicyEntry, StrongBox<float>> OnlyIfToleranceBelowTable =
+            new ConditionalWeakTable<DrugPolicyEntry, StrongBox<float>>();
+
+        public static ref float Sum(this Dialog_ManageDrugPolicies target)
+        {
+            return ref SumTable.GetValue(target, _ => new StrongBox<float>(0f)).Value;
+        }
+        public static ref float NewWidth(this Dialog_ManageDrugPolicies target)
+        {
+            return ref NewWidthTable.GetValue(target, _ => new StrongBox<float>(0f)).Value;
+        }
+        public static ref float OnlyIfToleranceBelow(this DrugPolicyEntry target)
+        {
+            return ref OnlyIfToleranceBelowTable.GetValue(target, _ => new StrongBox<float>(1f)).Value;
+        }
+#else
         [PrepatcherField]
         public static extern ref float Sum(this Dialog_ManageDrugPolicies target);
         [PrepatcherField]
@@ -33,6 +59,7 @@ namespace DrugPolicyEnhanced
         [PrepatcherField]
         [Prepatcher.DefaultValue(1.0f)]
         public static extern ref float OnlyIfToleranceBelow(this DrugPolicyEntry target);
+#endif
         [HarmonyPatch(typeof(Dialog_ManageDrugPolicies))]
         public static class Patch_Dialog_ManageDrugPolicies
         {
@@ -69,7 +96,7 @@ namespace DrugPolicyEnhanced
                 Rect newRect = new Rect(__instance.Sum(), rect.y, __instance.NewWidth(), rect.height);
 #endif
 #if v15
-                Rect newRect = new Rect(__instance.Sum() + 2 * __instance.NewWidth(), rect.y, __instance.NewWidth(), rect.height);
+                Rect newRect = new Rect(rect.x + __instance.Sum(), rect.y, __instance.NewWidth(), rect.height);
 #endif
                 Widgets.Label(newRect, "ToleranceThresholdColumnLabel".Translate());
                 TooltipHandler.TipRegionByKey(newRect, "ToleranceThresholdColumnDesc");
@@ -79,8 +106,15 @@ namespace DrugPolicyEnhanced
             [HarmonyPatch("DoEntryRow"), HarmonyPostfix]
             public static void DoEntryRow_Postfix(Dialog_ManageDrugPolicies __instance, Rect rect, DrugPolicyEntry entry)
             {
+                float sliderX = rect.x + __instance.Sum();
+                float sliderWidth = __instance.NewWidth();
+                if (Patch_YayoCombat_CalculateColumnsWidths.TryConsumeRowLayout(out float yayoX, out float yayoWidth))
+                {
+                    sliderX = yayoX;
+                    sliderWidth = yayoWidth;
+                }
                 Text.Anchor = TextAnchor.LowerCenter;
-                if (entry.drug.IsAddictiveDrug && (entry.allowedForJoy || entry.allowScheduled) 
+                if (entry.drug.IsAddictiveDrug && (entry.allowedForJoy || entry.allowScheduled)
                                                && HasToleranceDict.TryGetValue(entry.drug.defName, out bool tmp) && tmp)
                 {
                     string label;
@@ -94,7 +128,7 @@ namespace DrugPolicyEnhanced
                     }
 
                     entry.OnlyIfToleranceBelow() = Widgets.HorizontalSlider(
-                        new Rect(__instance.Sum(), rect.y, __instance.NewWidth(), rect.height).ContractedBy(4f), entry.OnlyIfToleranceBelow(), 0f, 1f, true,
+                        new Rect(sliderX, rect.y, sliderWidth, rect.height).ContractedBy(4f), entry.OnlyIfToleranceBelow(), 0f, 1f, true,
                         label, null, null, -1f);
                 }
                 Text.Anchor = TextAnchor.UpperLeft;
